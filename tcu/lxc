@@ -1,0 +1,29 @@
+http://manpages.ubuntu.com/manpages/cosmic/en/man5/lxc.conf.5.html
+
+
+需要将生成的demo文件，在lxc中执行按照以下步骤
+1.将文件复制到这个路径 ~/tcu_demo/out/target/product/x86_64/system/usr/bin
+2.lxc restart，执行lxc console 即可在/usr/bin看到该文件，执行即可。
+
+1.demo 本周 触发调用hal层接口
+在lxc中可独立运行，覆盖所有hal层接口，供lxc项目自测，后期交付会删除。
+2.hal（server  emulator）本周
+提供api供demo调用，交付阶段表现为没有设备时直接响应tcu工程的调用；可在lxc中独立运行，返回状态或数据暂时打桩反馈，下周实现与client端进行通信	
+3.client  下周 清明前
+与server端通信，构造硬件响应和突发情况上报
+
+
+
+
+192.168.94.127  
+
+    1.进到tcu_demo路径
+2. source build/envsetup.sh
+3.lunch generic_x86_64-eng
+4.make -j8
+5.lxc restart 
+6.lxc console
+
+
+1.lxc demo server 侧不用 进程，而用库+头文件方式提供
+2.api在库中实现，之前代码   mGnssHal = gps_device->get_gps_interface(gps_device); else分支中，增加代码匹配
